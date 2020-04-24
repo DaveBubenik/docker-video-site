@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace StreamingVideoDevice
 {
@@ -7,7 +8,7 @@ namespace StreamingVideoDevice
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 100; ++i)
             {
                 using (var vid = new Process())
                 {
@@ -17,6 +18,7 @@ namespace StreamingVideoDevice
                     vid.Start();
                     vid.WaitForExit();
                 }
+                Thread.Sleep(1000);
             }
         }
     }
