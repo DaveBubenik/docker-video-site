@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "StreamingVideoDevice": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

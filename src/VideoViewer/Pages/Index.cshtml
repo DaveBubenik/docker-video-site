@@ -1,0 +1,16 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+<style>
+    video {
+        width: 640px;
+        height: 360px;
+    }
+</style>
+<div>
+    <video data-dashjs-player autoplay src="http://localhost:1935/vod/mp4:sample.mp4/manifest.mpd" controls></video>
+</div>

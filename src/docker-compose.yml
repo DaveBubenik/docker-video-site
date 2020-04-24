@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  wowza:
+    image: wowza
+    container_name: wowza
+    volumes:
+      - "./Wowza/logs:/usr/local/WowzaStreamingEngine/logs"
+      - "./Wowza/conf:/usr/local/WowzaStreamingEngine/conf"
+    networks:
+        - MyNet
+    build:
+      context: .
+      dockerfile: Wowza/Dockerfile
+  StreamingVideoDevice:
+    image: streamingvideodevice
+    build:
+      context: .
+      dockerfile: StreamingVideoDevice/Dockerfile
+    volumes:
+      - "./StreamingVideoDevice/Videos:/Videos"
+    networks:
+        - MyNet
+  videoviewer:
+    image: videoviewer
+    build:
+      context: .
+      dockerfile: VideoViewer/Dockerfile
+    networks:
+        - MyNet
+  proxy:
+    container_name: proxy
+    hostname: proxy
+    image: nginx
+    networks:
+        - MyNet
+    ports:
+     - "800:80"
+     - "443:443"
+     - "1935:1935/tcp"
+     - "8086-8088:8086-8088/tcp"
+    volumes:
+      - ./Nginx/config:/etc/nginx
+      - ./Nginx/certs:/etc/ssl/private    
+networks:
+  MyNet:
