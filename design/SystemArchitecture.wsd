@@ -1,0 +1,26 @@
+@startuml
+nwdiag {
+  // define group at outside network definitions
+  group DockerVideoSystem {
+    color = "#77FF77";
+
+    NGINX;
+    Wowza;
+    VideoViewer;
+    StreamingVideoDevice
+  }
+
+  network public {
+    NGINX;
+  }
+  network Internal {
+    NGINX;
+    Wowza;
+    VideoViewer;
+  }
+  network VideoNet {
+    Wowza;
+    StreamingVideoDevice [ shape = node ]
+  }
+}
+@enduml
