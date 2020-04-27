@@ -6,7 +6,7 @@
     <ProjectGuid>9a30ed3f-ee71-4548-a052-a64581d97687</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>http://localhost:800</DockerServiceUrl>
-    <DockerServiceName>videoviewer</DockerServiceName>
+    <DockerServiceName>VideoViewer</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

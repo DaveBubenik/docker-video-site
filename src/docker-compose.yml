@@ -8,11 +8,19 @@ services:
       - "./Wowza/logs:/usr/local/WowzaStreamingEngine/logs"
       - "./Wowza/conf:/usr/local/WowzaStreamingEngine/conf"
     networks:
-        - Internal
-        - VideoNet
+      - Internal
+      - VideoNet
     build:
       context: .
       dockerfile: Wowza/Dockerfile
+  VideoApi:
+    image: videoapi
+    build:
+      context: .
+      dockerfile: VideoApi/Dockerfile
+    networks:
+      - Internal
+      - VideoNet
   StreamingVideoDevice:
     image: streamingvideodevice
     build:
@@ -21,20 +29,20 @@ services:
     volumes:
       - "./StreamingVideoDevice/Videos:/Videos"
     networks:
-        - VideoNet
-  videoviewer:
+      - VideoNet
+  VideoViewer:
     image: videoviewer
     build:
       context: .
       dockerfile: VideoViewer/Dockerfile
     networks:
-        - Internal
+      - Internal
   proxy:
     container_name: proxy
     hostname: proxy
     image: nginx
     networks:
-        - Internal
+      - Internal
     ports:
      - "800:80"
      - "443:443"

@@ -9,6 +9,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamingVideoDevice", "StreamingVideoDevice\StreamingVideoDevice.csproj", "{5ED21A40-3CD9-49F6-B638-6836DBF9DE28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoApi", "VideoApi\VideoApi.csproj", "{B10BE52C-10C1-4C1D-8822-C1C37410AEED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5ED21A40-3CD9-49F6-B638-6836DBF9DE28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ED21A40-3CD9-49F6-B638-6836DBF9DE28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ED21A40-3CD9-49F6-B638-6836DBF9DE28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B10BE52C-10C1-4C1D-8822-C1C37410AEED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10BE52C-10C1-4C1D-8822-C1C37410AEED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B10BE52C-10C1-4C1D-8822-C1C37410AEED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B10BE52C-10C1-4C1D-8822-C1C37410AEED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

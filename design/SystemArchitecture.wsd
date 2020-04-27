@@ -5,8 +5,9 @@ nwdiag {
     color = "#77FF77";
 
     NGINX;
-    Wowza;
     VideoViewer;
+    VideoApi;
+    Wowza;
     StreamingVideoDevice
   }
 
@@ -15,10 +16,12 @@ nwdiag {
   }
   network Internal {
     NGINX;
-    Wowza;
     VideoViewer;
+    VideoApi;
+    Wowza;
   }
   network VideoNet {
+    VideoApi;
     Wowza;
     StreamingVideoDevice [ shape = node ]
   }

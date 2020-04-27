@@ -6,12 +6,21 @@
 }
 
 <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+
 <style>
     video {
         width: 640px;
         height: 360px;
     }
 </style>
+<form method="post">
+    <button type="submit" class="btn btn-danger">Stop Video Stream</button>
+    <input type="hidden" name="id" value="1" />
+</form>
+<form method="post">
+    <button type="submit" class="btn btn-success">Start Video Stream</button>
+    <input type="hidden" name="id" value="2" />
+</form>
 <div>
     <video data-dashjs-player autoplay src="http://localhost:1935/live/myStream/manifest.mpd" controls></video>
 </div>
