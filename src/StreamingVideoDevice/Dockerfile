@@ -4,7 +4,6 @@ FROM mcr.microsoft.com/dotnet/core/runtime:3.1-buster-slim AS base
 RUN apt update
 RUN apt install -y ffmpeg
 WORKDIR /app
-EXPOSE 5558
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src

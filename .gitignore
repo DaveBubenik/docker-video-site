@@ -1,0 +1,12 @@
+logs
+.vs
+*.csproj.user
+*.cache
+bin
+obj
+StreamingVideoDevice\bin
+StreamingVideoDevice\obj
+VideoApi\bin
+VideoApi\obj
+VideoViewer\bin
+VideoViewer\obj

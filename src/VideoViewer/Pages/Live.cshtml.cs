@@ -18,13 +18,20 @@ namespace VideoViewer.Pages
         }
         public void OnPost(int id)
         {
-            if (id == 2)
+            switch(id)
             {
-                apiClient_.PostAsync("api/device/1/Start", new StringContent("")).Wait();
-            }
-            else
-            {
-                apiClient_.PostAsync("api/device/1/Stop", new StringContent("")).Wait();
+                case 1:
+                    apiClient_.PostAsync("api/device/streamingvideodevice1/Stop", new StringContent("")).Wait();
+                    break;
+                case 2:
+                    apiClient_.PostAsync("api/device/streamingvideodevice1/Start", new StringContent("")).Wait();
+                    break;
+                case 3:
+                    apiClient_.PostAsync("api/device/streamingvideodevice2/Stop", new StringContent("")).Wait();
+                    break;
+                case 4:
+                    apiClient_.PostAsync("api/device/streamingvideodevice2/Start", new StringContent("")).Wait();
+                    break;
             }
         }
     }

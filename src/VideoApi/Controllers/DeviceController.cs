@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetMQ;
 using NetMQ.Sockets;
+using VideoApi.Services;
 
 namespace VideoApi.Controllers
 {
@@ -13,8 +14,8 @@ namespace VideoApi.Controllers
     [ApiController]
     public class DeviceController : ControllerBase
     {
-        PushSocket commandSocket_;
-        public DeviceController(PushSocket commandSocket)
+        ZeroMqDeviceService commandSocket_;
+        public DeviceController(ZeroMqDeviceService commandSocket)
         {
             commandSocket_ = commandSocket;
         }
@@ -22,7 +23,7 @@ namespace VideoApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return commandSocket_.GetDevices();
         }
 
         // GET: api/Device/5
@@ -37,16 +38,17 @@ namespace VideoApi.Controllers
         public void Post([FromBody] string value)
         {
         }
+
         // POST: api/Device
         [HttpPost("{id}/{command}")]
-        public void Post(int id, string command)
+        public void Post(string id, string command)
         {
             //using (var commandSocket = new PushSocket(">tcp://StreamingVideoDevice:5558"))
             {
-                if(command=="Start")
-                    commandSocket_.SendFrame("Start");
-                else if(command=="Stop")
-                    commandSocket_.SendFrame("Stop");
+                if (command == "Start")
+                    commandSocket_.StartDevice(id);
+                else if (command == "Stop")
+                    commandSocket_.StopDevice(id);
             }
         }
     }

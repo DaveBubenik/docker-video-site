@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NetMQ.Sockets;
+using VideoApi.Services;
 
 namespace VideoApi
 {
@@ -26,7 +27,7 @@ namespace VideoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(new PushSocket(">tcp://StreamingVideoDevice:5558"));
+            services.AddSingleton(new ZeroMqDeviceService());
             services.AddControllers();
         }
 

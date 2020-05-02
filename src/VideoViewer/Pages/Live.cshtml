@@ -22,6 +22,16 @@
     <input type="hidden" name="id" value="2" />
 </form>
 <div>
-    <video data-dashjs-player autoplay src="http://localhost:1935/live/myStream/manifest.mpd" controls></video>
+    <video data-dashjs-player autoplay src="http://localhost:1935/live/streamingvideodevice1/manifest.mpd" controls></video>
 </div>
-
+<form method="post">
+    <button type="submit" class="btn btn-danger">Stop Video Stream</button>
+    <input type="hidden" name="id" value="3" />
+</form>
+<form method="post">
+    <button type="submit" class="btn btn-success">Start Video Stream</button>
+    <input type="hidden" name="id" value="4" />
+</form>
+<div>
+    <video data-dashjs-player autoplay src="http://localhost:1935/live/streamingvideodevice2/manifest.mpd" controls></video>
+</div>

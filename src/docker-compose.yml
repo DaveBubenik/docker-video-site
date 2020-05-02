@@ -21,8 +21,9 @@ services:
     networks:
       - Internal
       - VideoNet
-  StreamingVideoDevice:
+  StreamingVideoDevice1:
     image: streamingvideodevice
+    hostname: streamingvideodevice1
     build:
       context: .
       dockerfile: StreamingVideoDevice/Dockerfile
@@ -30,6 +31,20 @@ services:
       - "./StreamingVideoDevice/Videos:/Videos"
     networks:
       - VideoNet
+    environment:
+      - HOST_NAME=streamingvideodevice1
+  StreamingVideoDevice2:
+    image: streamingvideodevice
+    hostname: streamingvideodevice2
+    build:
+      context: .
+      dockerfile: StreamingVideoDevice/Dockerfile
+    volumes:
+      - "./StreamingVideoDevice/Videos:/Videos"
+    networks:
+      - VideoNet
+    environment:
+      - HOST_NAME=streamingvideodevice2
   VideoViewer:
     image: videoviewer
     build:
