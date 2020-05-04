@@ -19,13 +19,25 @@ namespace StreamingVideoDevice
             using (var poller = new NetMQPoller { responseSocket, requestSocket })
             {
                 requestSocket.Options.Identity = Encoding.ASCII.GetBytes(hostName);
+                // We are using NetMQ to retrieve the available devices in the following manner:
+                // queryRouterSocket -> querySocket -> All Devices In -> All Device out -> commandSocket -> queryRouterSocket
+                // Router            -> Publisher   -> Subscriber     -> Dealer         -> Router        -> Router
+                //This pattern allows any client to request the list of Clients in the commandSocket. So we can send messages directly to clients at another point in time.
                 responseSocket.Subscribe("All");
                 responseSocket.ReceiveReady += (o, e) =>
                 {
-                    var msg = e.Socket.ReceiveMultipartStrings();
-                    if (msg[1] == "SendStatus")
+                    //Recieve a message to with the following fields:
+                    // 1 - Subscription Name
+                    // 2 - queryRouterSocket id
+                    // 3 - command type
+                    var msg = e.Socket.ReceiveMultipartBytes();
+                    var command = Encoding.UTF8.GetString(msg[2], 0, msg[2].Length);
+                    if (command == "SendStatus")
                     {
-                        requestSocket.SendFrame("MyData");
+                        var messageToServer = new NetMQMessage();
+                        messageToServer.Append(msg[1]); //append the queryRouterSocket id so the caller knows where this msg should go.
+                        messageToServer.Append($"{hostName}");
+                        requestSocket.SendMultipartMessage(messageToServer);
                     }
                 };
                 requestSocket.ReceiveReady += (o,e) =>
