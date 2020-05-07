@@ -10,3 +10,7 @@ VideoApi\bin
 VideoApi\obj
 VideoViewer\bin
 VideoViewer\obj
+/src/Wowza/conf/LicenseDomainCache.properties
+/src/Wowza/conf/admin.password
+/src/Wowza/conf/jmxremote.password
+/src/Wowza/conf/publish.password

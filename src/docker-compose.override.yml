@@ -21,3 +21,7 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  wowza:
+    environment:
+      - WSE_MGR_USER=test
+      - WSE_MGR_PASS=1234
