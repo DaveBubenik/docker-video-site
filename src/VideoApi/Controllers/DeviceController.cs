@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetMQ;
 using NetMQ.Sockets;
+using StreamingVideoDevice;
 using VideoApi.Services;
 
 namespace VideoApi.Controllers
@@ -21,7 +22,7 @@ namespace VideoApi.Controllers
         }
         // GET: api/Device
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<DeviceStatus> Get()
         {
             return commandSocket_.GetDevices();
         }

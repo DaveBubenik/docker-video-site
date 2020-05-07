@@ -13,25 +13,26 @@
         height: 360px;
     }
 </style>
-<form method="post">
-    <button type="submit" class="btn btn-danger">Stop Video Stream</button>
-    <input type="hidden" name="id" value="1" />
-</form>
-<form method="post">
-    <button type="submit" class="btn btn-success">Start Video Stream</button>
-    <input type="hidden" name="id" value="2" />
-</form>
-<div>
-    <video data-dashjs-player autoplay src="http://localhost:1935/live/streamingvideodevice1/manifest.mpd" controls></video>
-</div>
-<form method="post">
-    <button type="submit" class="btn btn-danger">Stop Video Stream</button>
-    <input type="hidden" name="id" value="3" />
-</form>
-<form method="post">
-    <button type="submit" class="btn btn-success">Start Video Stream</button>
-    <input type="hidden" name="id" value="4" />
-</form>
-<div>
-    <video data-dashjs-player autoplay src="http://localhost:1935/live/streamingvideodevice2/manifest.mpd" controls></video>
-</div>
+@using (Html.BeginForm())
+{
+    @for (var i = 0; i < Model.devices.Count; i++)
+    {
+        <div class="form-check form-check-inline">
+            @Html.CheckBox($"deviceCheckbox[{i}]", @Model.devices[i].StreamActive, new { @class = "form-check-input", @type = "checkbox", @id = $"{Model.devices[i].HostName}" })
+            <label class="form-check-label" for="@Model.devices[i].HostName">@Model.devices[i].FriendlyName</label>
+        </div>
+    }
+    <button type="submit" class="btn btn-danger" name="submitButton" value="Stop">Stop Video Stream</button>
+    <button type="submit" class="btn btn-success" name="submitButton" value="Start">Start Video Stream</button>
+}
+@foreach (var device in Model.devices)
+{
+    if (device.StreamActive)
+    {
+        <div>
+            <h6>@device.FriendlyName</h6>
+            <video data-dashjs-player autoplay src="http://localhost:1935/live/@device.HostName/manifest.mpd" controls></video>
+        </div>
+    }
+}
+

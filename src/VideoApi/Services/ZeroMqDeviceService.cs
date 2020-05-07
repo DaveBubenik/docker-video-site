@@ -1,5 +1,7 @@
 ﻿using NetMQ;
 using NetMQ.Sockets;
+using Newtonsoft.Json;
+using StreamingVideoDevice;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +49,7 @@ namespace VideoApi.Services
             poller.RunAsync();
         }
 
-        public IEnumerable<string> GetDevices()
+        public IEnumerable<DeviceStatus> GetDevices()
         {
            var reqSock = new DealerSocket(">inproc://queryRouter");
             reqSock.SendReady += (o, e) =>
@@ -57,10 +59,10 @@ namespace VideoApi.Services
             reqSock.Poll();
             
             string msg;
-            List<string> results = new List<string>();
+            var results = new List<DeviceStatus>();
             while (reqSock.TryReceiveFrameString(TimeSpan.FromSeconds(1), out msg))
             {
-                results.Add(msg);
+                results.Add(JsonConvert.DeserializeObject<DeviceStatus>(msg));
             }
             return results;
         }

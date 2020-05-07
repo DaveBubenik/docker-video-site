@@ -1,5 +1,6 @@
 ﻿using NetMQ;
 using NetMQ.Sockets;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -11,6 +12,7 @@ namespace StreamingVideoDevice
     class Program
     {
         static string hostName = Environment.GetEnvironmentVariable("HOST_NAME");
+        static string friendlyName = Environment.GetEnvironmentVariable("FRIENDLY_NAME");
         static void Main(string[] args)
         {
             Process videoLoop = null;
@@ -18,6 +20,7 @@ namespace StreamingVideoDevice
             using (var requestSocket = new DealerSocket(">tcp://VideoApi:5558"))
             using (var poller = new NetMQPoller { responseSocket, requestSocket })
             {
+                
                 requestSocket.Options.Identity = Encoding.ASCII.GetBytes(hostName);
                 // We are using NetMQ to retrieve the available devices in the following manner:
                 // queryRouterSocket -> querySocket -> All Devices In -> All Device out -> commandSocket -> queryRouterSocket
@@ -36,7 +39,8 @@ namespace StreamingVideoDevice
                     {
                         var messageToServer = new NetMQMessage();
                         messageToServer.Append(msg[1]); //append the queryRouterSocket id so the caller knows where this msg should go.
-                        messageToServer.Append($"{hostName}");
+                        var deviceStatus = new DeviceStatus() { HostName = hostName, FriendlyName = friendlyName, StreamActive = (videoLoop != null) };
+                        messageToServer.Append(JsonConvert.SerializeObject(deviceStatus));
                         requestSocket.SendMultipartMessage(messageToServer);
                     }
                 };
